@@ -1,5 +1,5 @@
 using UnityEngine;
-#if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
+#if ENABLE_INPUT_SYSTEM
 using UnityEngine.InputSystem;
 #endif
 
@@ -21,7 +21,7 @@ namespace StarterAssets
 		public bool cursorLocked = true;
 		public bool cursorInputForLook = true;
 
-#if ENABLE_INPUT_SYSTEM && STARTER_ASSETS_PACKAGES_CHECKED
+#if ENABLE_INPUT_SYSTEM
 		public void OnMove(InputValue value)
 		{
 			MoveInput(value.Get<Vector2>());
@@ -45,10 +45,31 @@ namespace StarterAssets
 			SprintInput(value.isPressed);
 		}
 
-		public void OnShoot(InputValue _value)
+		public void OnShoot(InputValue value)
 		{
-            ShootInput(_value.isPressed);
-        }
+			ShootInput(value.isPressed);
+		}
+
+		public void OnChangeWeapon(InputValue value) 
+		{
+			int type = (int)value.Get<float>();
+
+			WEAPON_TYPE wType = WEAPON_TYPE.Sword;
+
+			switch (type) 
+			{
+				case 0:
+					wType = WEAPON_TYPE.Sword;
+					break;
+
+                case 1:
+                    wType = WEAPON_TYPE.Sword;
+                    break;
+            }
+
+			ChangeWeapon(wType);
+		}
+
 #endif
 
 
@@ -71,12 +92,16 @@ namespace StarterAssets
 		{
 			sprint = newSprintState;
 		}
-
-		public void ShootInput(bool _newShootState) 
+		
+		public void ShootInput(bool newShootState)
 		{
-			shoot = _newShootState;
-        }
+			shoot = newShootState;
+		}
 
+		public void ChangeWeapon(WEAPON_TYPE _type)
+		{
+			//To-Do
+		}
 
 		private void OnApplicationFocus(bool hasFocus)
 		{

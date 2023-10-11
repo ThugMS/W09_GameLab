@@ -42,13 +42,13 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Shoot",
-                    "type": "PassThrough",
-                    "id": "5d9f797c-e8a3-43f7-85e3-a3b3379076d1",
-                    "expectedControlType": "",
+                    "name": "ChangeWeapon",
+                    "type": "Button",
+                    "id": "643d52a3-36a3-4799-b64a-2b529bd61538",
+                    "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
-                    "initialStateCheck": true
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -230,12 +230,12 @@
                 },
                 {
                     "name": "",
-                    "id": "38375b99-25ba-4b00-b820-d0215afdb04f",
-                    "path": "<Mouse>/leftButton",
+                    "id": "26c22335-ea25-4459-80ff-6da218b5148b",
+                    "path": "<Keyboard>/anyKey",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Shoot",
+                    "action": "ChangeWeapon",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
