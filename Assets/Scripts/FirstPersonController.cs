@@ -11,6 +11,8 @@ namespace StarterAssets
 #endif
 	public class FirstPersonController : MonoBehaviour
 	{
+		public static FirstPersonController instance;
+
 		[Header("Player")]
 		[Tooltip("Move speed of the character in m/s")]
 		public float MoveSpeed = 4.0f;
@@ -50,6 +52,9 @@ namespace StarterAssets
 		public float TopClamp = 90.0f;
 		[Tooltip("How far in degrees can you move the camera down")]
 		public float BottomClamp = -90.0f;
+
+		[Header("Weapon")]
+		public GameObject Weapon;
 
 		// cinemachine
 		private float _cinemachineTargetPitch;
@@ -93,6 +98,12 @@ namespace StarterAssets
 			{
 				_mainCamera = GameObject.FindGameObjectWithTag("MainCamera");
 			}
+
+			if(instance == null)
+			{
+				instance = this;
+			}
+
 		}
 
 		private void Start()
@@ -115,6 +126,7 @@ namespace StarterAssets
 			JumpAndGravity();
 			GroundedCheck();
 			Move();
+			Shoot();
 		}
 
 		private void LateUpdate()
@@ -145,9 +157,10 @@ namespace StarterAssets
 
 				// Update Cinemachine camera target pitch
 				CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f);
+				Weapon.transform.localRotation = Quaternion.Euler(_cinemachineTargetPitch, 0.0f, 0.0f);
 
-				// rotate the player left and right
-				transform.Rotate(Vector3.up * _rotationVelocity);
+                // rotate the player left and right
+                transform.Rotate(Vector3.up * _rotationVelocity);
 			}
 		}
 
@@ -243,6 +256,14 @@ namespace StarterAssets
 			if (_verticalVelocity < _terminalVelocity)
 			{
 				_verticalVelocity += Gravity * Time.deltaTime;
+			}
+		}
+
+		private void Shoot()
+		{
+			if (_input.shoot)
+			{
+				Weapon.GetComponent<PlayerWeaponManager>().ShootAction();
 			}
 		}
 
