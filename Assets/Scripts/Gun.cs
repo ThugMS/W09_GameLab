@@ -47,6 +47,8 @@ public abstract class Gun : MonoBehaviour
 
     public abstract void Shoot();
 
+    public abstract void Skill();
+
     public void SetShootDireciton()
     {
         RaycastHit hit;

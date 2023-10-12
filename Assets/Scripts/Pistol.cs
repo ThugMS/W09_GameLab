@@ -6,6 +6,7 @@ public class Pistol : Gun
 {
     #region PublicVariables
     public LineRenderer shootLine;
+    public Animator animator;
     #endregion
 
     #region PrivateVariables
@@ -23,6 +24,7 @@ public class Pistol : Gun
         shootCurCoolTime = shootCoolTime;
 
         shootLine = GetComponent<LineRenderer>();
+        animator = GetComponent<Animator>();
     }
 
     public override void Shoot()
@@ -32,6 +34,11 @@ public class Pistol : Gun
 
         SetShootDireciton();
         ShowShoot();
+    }
+
+    public override void Skill()
+    {
+        
     }
     #endregion
 
@@ -47,6 +54,8 @@ public class Pistol : Gun
         shootLine.SetPosition(1, targetPos);
 
         StartCoroutine(nameof(IE_ShootTrail));
+
+        animator.Play(ConstVariable.PISTOL_ANIMATION_RECOIL);
 
         shootCurCoolTime = 0;
     }
