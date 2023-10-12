@@ -11,4 +11,5 @@ public static class ConstVariable
     public const float PISTOL_OFFSET = 1f;
 
     public const string PISTOL_ANIMATION_RECOIL = "PistolRecoil";
+    public const int PISTOL_PARTICLE_INDEX = 0;
 }

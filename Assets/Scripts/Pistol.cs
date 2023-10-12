@@ -7,7 +7,7 @@ public class Pistol : Gun
     #region PublicVariables
     public LineRenderer shootLine;
     public Animator animator;
-    public AudioSource audio;
+    public AudioSource pistolSound;
     #endregion
 
     #region PrivateVariables
@@ -26,7 +26,7 @@ public class Pistol : Gun
 
         shootLine = GetComponent<LineRenderer>();
         animator = GetComponent<Animator>();
-        audio = GetComponent<AudioSource>();
+        pistolSound = GetComponent<AudioSource>();
     }
 
     public override void Shoot()
@@ -59,8 +59,13 @@ public class Pistol : Gun
         StartCoroutine(nameof(IE_ShootTrail));
 
         animator.Play(ConstVariable.PISTOL_ANIMATION_RECOIL);
-        audio.Play();
+        pistolSound.Play();
         
+        if(isHit == true)
+        {   
+            ParticleManager.instance.ShowParticle(ConstVariable.PISTOL_PARTICLE_INDEX, targetPos, -shootDirection.normalized);
+        }
+
         shootCurCoolTime = 0;
     }
 

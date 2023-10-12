@@ -18,8 +18,8 @@ public abstract class Gun : MonoBehaviour
     public float shootCoolTime;
     public float shootCurCoolTime;
     public float shootDamage;
-    
 
+    public bool isHit = false;
     #endregion
 
     #region PrivateVariables
@@ -53,8 +53,11 @@ public abstract class Gun : MonoBehaviour
     {
         RaycastHit hit;
 
-        if(Physics.SphereCast(viewCamera.transform.position, shootCircleRadius, viewCamera.transform.forward, out hit, targetLayer))
+        isHit = false;
+
+        if (Physics.SphereCast(viewCamera.transform.position, shootCircleRadius, viewCamera.transform.forward, out hit, targetLayer))
         {
+            isHit = true;
             targetPos = hit.point;
             shootDirection = hit.point - transform.position;
         }
