@@ -21,12 +21,12 @@ public class ParticleManager : MonoBehaviour
         }
     }
 
-    public void ShowParticle(int _index, Vector3 _pos, Vector3 _angle) 
+    public void ShowParticle(int _index, Vector3 _pos, Vector3 _angle)
     {
-        float angle = Vector3.Angle(Vector3.up, _angle);
-        GameObject obj = Instantiate(particles[_index], _pos, Quaternion.Euler(angle, angle, 0));
-    }
+        GameObject obj = Instantiate(particles[_index], _pos, Quaternion.identity);
+        obj.transform.LookAt(_angle);
 
+    }
     #endregion
 
     #region PrivateMethod

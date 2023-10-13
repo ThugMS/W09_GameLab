@@ -63,7 +63,7 @@ public class Pistol : Gun
         
         if(isHit == true)
         {   
-            ParticleManager.instance.ShowParticle(ConstVariable.PISTOL_PARTICLE_INDEX, targetPos, -shootDirection.normalized);
+            ParticleManager.instance.ShowParticle(ConstVariable.PISTOL_PARTICLE_INDEX, targetPos, transform.position);
         }
 
         shootCurCoolTime = 0;
