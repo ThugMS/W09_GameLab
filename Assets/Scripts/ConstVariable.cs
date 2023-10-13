@@ -11,6 +11,7 @@ public static class ConstVariable
     public const float PISTOL_OFFSET = 1f;
     public const float PISTOL_SKILL_COOLTIME = 3f;
     public const float PISTOL_SKILL_CHARGETIME = 1f;
+    public const float PISTOL_SKILL_EFFECTSCALE = 0.3f;
 
     public const string PISTOL_ANIMATION_RECOIL = "PistolRecoil";
     public const int PISTOL_PARTICLE_INDEX = 0;

@@ -245,9 +245,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55919ac34a26952479f3fc91f777b2fa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  MoveSpeed: 4
+  MoveSpeed: 10
   SprintSpeed: 6
-  RotationSpeed: 1
+  RotationSpeed: 0.2
   SpeedChangeRate: 10
   JumpHeight: 1.2
   Gravity: -15
@@ -297,6 +297,7 @@ MonoBehaviour:
   jump: 0
   sprint: 0
   shoot: 0
+  skill: 0
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1
@@ -473,6 +474,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2c27a61d94cd21d41b32d80db0a0baba, type: 3}
+--- !u!1 &4716852708862782401 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2475519682069170130, guid: 2c27a61d94cd21d41b32d80db0a0baba,
+    type: 3}
+  m_PrefabInstance: {fileID: 7147054849348234259}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &4761812166868453938 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2394272791100761633, guid: 2c27a61d94cd21d41b32d80db0a0baba,
@@ -594,7 +601,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 2f5072a1478d9494ebf59b7205fc9ed5, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.5
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -719,6 +726,11 @@ MonoBehaviour:
   shootCoolTime: 0
   shootCurCoolTime: 0
   shootDamage: 0
+  skillCoolTime: 0
+  skillCurCoolTime: 0
+  isHit: 0
   shootLine: {fileID: 0}
   animator: {fileID: 0}
-  audio: {fileID: 0}
+  pistolSound: {fileID: 0}
+  isSkillPressed: 0
+  m_skillEffect: {fileID: 4716852708862782401}

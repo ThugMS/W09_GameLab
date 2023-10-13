@@ -17,9 +17,11 @@ public class Pistol : Gun
     private float m_curCoolTime;
     private float m_offset;
 
-
+    [Header("Skill")]
     private float m_skillChargeTime;
     private float m_skillChargeCurTime = 0;
+    [SerializeField] private GameObject m_skillEffect;
+    private float m_skillEffectScale;
     #endregion
 
     #region PublicMethod
@@ -30,6 +32,7 @@ public class Pistol : Gun
         shootDamage = ConstVariable.PISTOL_DAMAGE;
         skillCoolTime = ConstVariable.PISTOL_SKILL_COOLTIME;
         m_skillChargeTime = ConstVariable.PISTOL_SKILL_CHARGETIME;
+        m_skillEffectScale = ConstVariable.PISTOL_SKILL_EFFECTSCALE;
 
         shootCurCoolTime = shootCoolTime;
         skillCurCoolTime = skillCoolTime;
@@ -135,6 +138,11 @@ public class Pistol : Gun
             m_skillChargeCurTime -= Time.deltaTime;
             m_skillChargeCurTime = m_skillChargeCurTime < 0 ? 0 : m_skillChargeCurTime;
         }
+
+        float chargeRate = m_skillChargeCurTime / m_skillChargeTime;
+
+        Vector3 scale = new Vector3(chargeRate * m_skillEffectScale, chargeRate * m_skillEffectScale, chargeRate * m_skillEffectScale);
+        m_skillEffect.transform.localScale = scale;
     }
 
     private bool SkillChargeCheck()
@@ -147,6 +155,8 @@ public class Pistol : Gun
         skillCurCoolTime = 0;
         shootCurCoolTime = 0;
         m_skillChargeCurTime = 0;
+
+        m_skillEffect.transform.localScale = Vector3.zero;
     }
 
     private IEnumerator IE_ShootTrail()
