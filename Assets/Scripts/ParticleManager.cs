@@ -27,6 +27,11 @@ public class ParticleManager : MonoBehaviour
         obj.transform.LookAt(_angle);
 
     }
+
+    public void ShowParticle(int _index, Vector3 _pos)
+    {
+        GameObject obj = Instantiate(particles[_index], _pos, Quaternion.identity);
+    }
     #endregion
 
     #region PrivateMethod

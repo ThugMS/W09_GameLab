@@ -19,7 +19,7 @@ public class Grenade : MonoBehaviour
 
     private void Update()
     {
-        m_rb.AddForce(m_dir * m_throwSpeed, ForceMode.Force);
+        
     }
 
     public void InitSetting(Vector3 _dir)
@@ -35,13 +35,25 @@ public class Grenade : MonoBehaviour
     public void AddForce()
     {
         m_rb.AddForce(Vector3.up * m_upPower, ForceMode.Impulse);
+        m_rb.AddForce(m_dir * m_throwSpeed, ForceMode.Impulse);
+    }
+
+    public void TargetHit()
+    {
+        
     }
     #endregion
 
     #region PrivateMethod
     private void OnCollisionEnter(Collision collision)
     {
-        
+        Explosion();
+    }
+
+    private void Explosion()
+    {
+        ParticleManager.instance.ShowParticle(ConstVariable.GRENADE_PARTICLE_INDEX, transform.position);
+        Destroy(gameObject);
     }
     #endregion
 }
