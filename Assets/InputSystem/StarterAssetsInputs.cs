@@ -14,6 +14,7 @@ namespace StarterAssets
 		public bool sprint;
 		public bool shoot;
 		public bool skill;
+		public bool throwing;
 
 		[Header("Movement Settings")]
 		public bool analogMovement;
@@ -56,6 +57,11 @@ namespace StarterAssets
 			SkillInput(value.isPressed);
 		}
 
+		public void OnThrow(InputValue value)
+		{
+			ThrowingInput(value.isPressed);
+		}
+
 		public void OnChangeWeapon(InputValue value) 
 		{
 			int type = (int)value.Get<float>();
@@ -69,7 +75,7 @@ namespace StarterAssets
 					break;
 
                 case 1:
-                    wType = WEAPON_TYPE.Sword;
+                    wType = WEAPON_TYPE.Pistol;
                     break;
             }
 
@@ -109,7 +115,10 @@ namespace StarterAssets
 			skill = newSkillState;
 		}
 
-
+		public void ThrowingInput(bool newThrowinngState)
+		{
+			throwing = newThrowinngState;
+		}
 		public void ChangeWeapon(WEAPON_TYPE _type)
 		{
 			//To-Do

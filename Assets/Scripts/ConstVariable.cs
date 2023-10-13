@@ -15,4 +15,9 @@ public static class ConstVariable
 
     public const string PISTOL_ANIMATION_RECOIL = "PistolRecoil";
     public const int PISTOL_PARTICLE_INDEX = 0;
+
+    [Header("Grenade")]
+    public const float GRENADE_SPEED = 15f;
+    public const float GRENADE_UPPOWER = 5f;
+    public const float GRENADE_RANGE = 10f;
 }

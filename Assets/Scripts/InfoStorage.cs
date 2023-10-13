@@ -6,3 +6,7 @@ public enum WEAPON_TYPE {
     Sword, Pistol
 }
 
+public enum THROWING_TYPE
+{
+    Grenade
+}
