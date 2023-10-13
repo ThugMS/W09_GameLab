@@ -37,6 +37,20 @@ public class PlayerWeaponManager : MonoBehaviour
                 break;
         }
     }
+
+    public void SkillAction(bool _pressed)
+    {
+        switch (equipWeaponType)
+        {
+            case WEAPON_TYPE.Sword:
+
+                break;
+
+            default:
+                equipWeapon.GetComponent<Gun>().Skill(_pressed);
+                break;
+        }
+    }
     #endregion
 
     #region PrivateMethod

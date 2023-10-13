@@ -127,7 +127,9 @@ namespace StarterAssets
 			GroundedCheck();
 			Move();
 			Shoot();
-		}
+			Skill();
+
+        }
 
 		private void LateUpdate()
 		{
@@ -265,6 +267,11 @@ namespace StarterAssets
 			{
 				Weapon.GetComponent<PlayerWeaponManager>().ShootAction();
 			}
+		}
+
+		private void Skill()
+		{
+            Weapon.GetComponent<PlayerWeaponManager>().SkillAction(_input.skill);
 		}
 
 		private static float ClampAngle(float lfAngle, float lfMin, float lfMax)

@@ -19,6 +19,9 @@ public abstract class Gun : MonoBehaviour
     public float shootCurCoolTime;
     public float shootDamage;
 
+    public float skillCoolTime;
+    public float skillCurCoolTime;
+
     public bool isHit = false;
     #endregion
 
@@ -40,14 +43,14 @@ public abstract class Gun : MonoBehaviour
     }
     public virtual void Update()
     {
-        shootCurCoolTime += Time.deltaTime;
+        UpdateCoolTime();
     }
 
     public abstract void InitSetting();
 
     public abstract void Shoot();
 
-    public abstract void Skill();
+    public abstract void Skill(bool _pressed);
 
     public void SetShootDireciton()
     {
@@ -73,6 +76,21 @@ public abstract class Gun : MonoBehaviour
         return shootCurCoolTime >= shootCoolTime;
     }
 
+    public bool SkillCheck()
+    {
+        return skillCurCoolTime >= skillCoolTime;
+    }
+
+    public void ResetShootCoolTime()
+    {
+        shootCurCoolTime = 0;
+    }
+
+    public void UpdateCoolTime()
+    {
+        shootCurCoolTime += Time.deltaTime;
+        skillCurCoolTime += Time.deltaTime;
+    }
     #endregion
 
     #region PrivateMethod
