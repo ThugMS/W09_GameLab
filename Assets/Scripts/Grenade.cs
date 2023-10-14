@@ -6,6 +6,7 @@ using UnityEngine;
 public class Grenade : MonoBehaviour, IProjectile
 {
     #region PublicVariables
+    public bool isTrace = false;
     #endregion
 
     #region PrivateVariables
@@ -19,7 +20,6 @@ public class Grenade : MonoBehaviour, IProjectile
 
     private void Update()
     {
-        
     }
 
     public void InitSetting(Vector3 _dir, Vector3 _playerVel)
@@ -31,6 +31,11 @@ public class Grenade : MonoBehaviour, IProjectile
 
         m_rb.AddForce(_playerVel, ForceMode.Impulse);
         AddForce();
+    }
+
+    public void ProjectileHit(GameObject _target)
+    {
+        
     }
 
     public void AddForce()
