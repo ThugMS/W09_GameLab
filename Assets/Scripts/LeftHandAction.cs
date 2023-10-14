@@ -55,7 +55,12 @@ public class LeftHandAction : MonoBehaviour
 
         GetDirection();
 
-        grenade.GetComponent<Grenade>().InitSetting(m_targetDir.normalized);
+        CharacterController playerController = transform.parent.GetComponent<CharacterController>();
+
+        grenade.GetComponent<Grenade>().InitSetting(m_targetDir.normalized, playerController.velocity);
+        
+        
+        
     }
 
     private void GetDirection()

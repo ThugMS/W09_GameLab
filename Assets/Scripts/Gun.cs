@@ -1,6 +1,7 @@
 using StarterAssets;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public abstract class Gun : MonoBehaviour
@@ -8,7 +9,7 @@ public abstract class Gun : MonoBehaviour
     #region PublicVariables
     public Vector3 shootDirection;
     public Vector3 targetPos;
-
+    public RaycastHit hit;
     public GameObject viewCamera;
     
     public int targetLayer;
@@ -23,6 +24,7 @@ public abstract class Gun : MonoBehaviour
     public float skillCurCoolTime;
 
     public bool isHit = false;
+    public bool isProjectile = false;
     #endregion
 
     #region PrivateVariables
@@ -37,7 +39,7 @@ public abstract class Gun : MonoBehaviour
             viewCamera = GameObject.FindGameObjectWithTag("MainCamera");
         }
 
-        targetLayer = 1 << LayerMask.GetMask("Monster", "Wall", "Default");
+        targetLayer = 1 << LayerMask.GetMask("Monster", "Wall", "Projectile");
 
         InitSetting();
     }
@@ -54,15 +56,15 @@ public abstract class Gun : MonoBehaviour
 
     public void SetShootDireciton()
     {
-        RaycastHit hit;
-
         isHit = false;
+        isProjectile = false;
 
         if (Physics.SphereCast(viewCamera.transform.position, shootCircleRadius, viewCamera.transform.forward, out hit, targetLayer))
         {
             isHit = true;
             targetPos = hit.point;
             shootDirection = hit.point - transform.position;
+            CheckProjectile();
         }
         else
         {
@@ -90,6 +92,16 @@ public abstract class Gun : MonoBehaviour
     {
         shootCurCoolTime += Time.deltaTime;
         skillCurCoolTime += Time.deltaTime;
+    }
+
+    public void CheckProjectile()
+    {
+        if(hit.transform.gameObject.layer == LayerMask.NameToLayer("Projectile"))
+        {
+            isProjectile = true;
+            hit.transform.GetComponent<IProjectile>().ProjectileAction();
+        }
+
     }
     #endregion
 

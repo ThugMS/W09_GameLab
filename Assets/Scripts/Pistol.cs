@@ -64,9 +64,7 @@ public class Pistol : Gun
         isSkillPressed = _pressed;
 
         if (_pressed == true)
-        {
             return;
-        }
 
         if (SkillCheck() == false)
             return;

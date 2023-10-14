@@ -812,6 +812,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   particles:
   - {fileID: 7288213405625235809, guid: 1a3ca4cac97e4174292d967eb6e6a09f, type: 3}
+  - {fileID: 100000, guid: 24244a967cee5614081b3225dad0b33b, type: 3}
 --- !u!4 &1403722337
 Transform:
   m_ObjectHideFlags: 0
@@ -1404,6 +1405,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: MainCamera
+      objectReference: {fileID: 0}
+    - target: {fileID: 9018249871969862650, guid: 2d3a85ecde41a8246a79669975912b74,
+        type: 3}
+      propertyPath: m_UpdateMethod
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2d3a85ecde41a8246a79669975912b74, type: 3}

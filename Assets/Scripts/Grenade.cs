@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Net.Sockets;
 using UnityEngine;
 
-public class Grenade : MonoBehaviour
+public class Grenade : MonoBehaviour, IProjectile
 {
     #region PublicVariables
     #endregion
@@ -22,13 +22,14 @@ public class Grenade : MonoBehaviour
         
     }
 
-    public void InitSetting(Vector3 _dir)
+    public void InitSetting(Vector3 _dir, Vector3 _playerVel)
     {
         m_rb = GetComponent<Rigidbody>();
         m_throwSpeed = ConstVariable.GRENADE_SPEED;
         m_upPower = ConstVariable.GRENADE_UPPOWER;
         m_dir = _dir;
 
+        m_rb.AddForce(_playerVel, ForceMode.Impulse);
         AddForce();
     }
 
@@ -36,6 +37,11 @@ public class Grenade : MonoBehaviour
     {
         m_rb.AddForce(Vector3.up * m_upPower, ForceMode.Impulse);
         m_rb.AddForce(m_dir * m_throwSpeed, ForceMode.Impulse);
+    }
+
+    public void ProjectileAction()
+    {
+        Debug.Log("hit proejctile");
     }
 
     public void TargetHit()
