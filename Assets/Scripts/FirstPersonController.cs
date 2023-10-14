@@ -211,7 +211,15 @@ namespace StarterAssets
 			}
 
 			// move the player
-			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime + _outsideEffect*Time.deltaTime);
+			if(_outsideEffect != Vector3.zero &&  Vector3.Dot(inputDirection, _outsideEffect) > 0)
+			{
+                _controller.Move(inputDirection.normalized * Time.deltaTime + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime + _outsideEffect * Time.deltaTime);
+            }
+			else
+			{
+                _controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime + _outsideEffect * Time.deltaTime);
+            }
+			
 		}
 
 		private void JumpAndGravity()
@@ -268,6 +276,8 @@ namespace StarterAssets
 				return;
 			
 			_outsideEffect = Vector3.Lerp(_outsideEffect, Vector3.zero, _outsideEffectLerp);
+			if (_outsideEffect.magnitude <= 0.5f)
+				_outsideEffect = Vector3.zero;
 			Debug.Log(_outsideEffect);
 			
 		}

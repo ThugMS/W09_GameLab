@@ -9,7 +9,7 @@ public static class ConstVariable
     public const float PISTOL_COOLTIME = 0.5f;
     public const float PISTOL_DAMAGE = 10f;
     public const float PISTOL_OFFSET = 1f;
-    public const float PISTOL_SKILL_COOLTIME = 3f;
+    public const float PISTOL_SKILL_COOLTIME = 1f;
     public const float PISTOL_SKILL_CHARGETIME = 1f;
     public const float PISTOL_SKILL_EFFECTSCALE = 0.3f;
 
@@ -17,7 +17,7 @@ public static class ConstVariable
     public const int PISTOL_PARTICLE_INDEX = 0;
 
     [Header("Grenade")]
-    public const float GRENADE_SPEED = 15f;
+    public const float GRENADE_SPEED = 25f;
     public const float GRENADE_UPPOWER = 5f;
     public const float GRENADE_RANGE = 10f;
     public const int GRENADE_PARTICLE_INDEX = 1;
