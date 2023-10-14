@@ -7,6 +7,7 @@ public class Grenade : MonoBehaviour, IProjectile
 {
     #region PublicVariables
     public bool isTrace = false;
+    public Vector3 targetPos;
     #endregion
 
     #region PrivateVariables
@@ -19,7 +20,12 @@ public class Grenade : MonoBehaviour, IProjectile
     #region PublicMethod
 
     private void Update()
-    {
+    {   
+        if(isTrace == true)
+        {
+            Vector3 dir = targetPos - transform.position;
+            transform.Translate(dir.normalized * 100f * Time.deltaTime);
+        }
     }
 
     public void InitSetting(Vector3 _dir, Vector3 _playerVel)
@@ -33,9 +39,17 @@ public class Grenade : MonoBehaviour, IProjectile
         AddForce();
     }
 
-    public void ProjectileHit(GameObject _target)
+    public void TraceTarget(Vector3 _pos)
     {
-        
+        isTrace = true;
+        targetPos = _pos;
+        m_rb = GetComponent<Rigidbody>();
+        m_rb.useGravity = false;
+    }
+
+    public void AttackTarget()
+    {
+        transform.position = targetPos;
     }
 
     public void AddForce()
@@ -46,7 +60,26 @@ public class Grenade : MonoBehaviour, IProjectile
 
     public void ProjectileAction()
     {
-        Debug.Log("hit proejctile");
+        int num = ConstVariable.GRENADE_DIVDENUM;
+        int cnt = 0;
+        GameObject monsters = GameObject.Find("Monsters");
+        int monstersChildCount = monsters.transform.childCount;
+        while (cnt < num)
+        {
+            for(int i = 0; i < monstersChildCount; i++)
+            {
+                Vector3 targetPos = monsters.transform.GetChild(i).position;
+
+                GameObject obj = Instantiate(gameObject, transform.position, Quaternion.identity);
+                obj.GetComponent<Grenade>().TraceTarget(targetPos);
+                cnt++;
+
+                if (cnt >= num)
+                    break;
+            }
+        }
+
+        Destroy(gameObject);
     }
 
     public void TargetHit()
