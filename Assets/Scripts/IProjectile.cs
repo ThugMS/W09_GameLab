@@ -12,7 +12,7 @@ public interface IProjectile
 
     #region PublicMethod
     public void ProjectileAction();
-    
+
     #endregion
 
     #region PrivateMethod

@@ -59,7 +59,8 @@ public class Grenade : MonoBehaviour, IProjectile
     }
 
     public void ProjectileAction()
-    {
+    {   
+
         int num = ConstVariable.GRENADE_DIVDENUM;
         int cnt = 0;
         GameObject monsters = GameObject.Find("Monsters");
@@ -79,7 +80,9 @@ public class Grenade : MonoBehaviour, IProjectile
             }
         }
 
-        Destroy(gameObject);
+        EffectManager.instance.TimeStopEffect();
+
+        Explosion();
     }
 
     public void TargetHit()
