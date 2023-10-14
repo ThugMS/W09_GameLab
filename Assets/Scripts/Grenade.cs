@@ -8,6 +8,8 @@ public class Grenade : MonoBehaviour, IProjectile
     #region PublicVariables
     public bool isTrace = false;
     public Vector3 targetPos;
+
+    public int targetLayer;
     #endregion
 
     #region PrivateVariables
@@ -18,6 +20,10 @@ public class Grenade : MonoBehaviour, IProjectile
     #endregion
 
     #region PublicMethod
+    private void Start()
+    {
+        targetLayer = LayerMask.GetMask("Player", "Monster");
+    }
 
     private void Update()
     {   
@@ -80,9 +86,8 @@ public class Grenade : MonoBehaviour, IProjectile
             }
         }
 
-        EffectManager.instance.TimeStopEffect();
-
         Explosion();
+        EffectManager.instance.TimeStopEffect();
     }
 
     public void TargetHit()
@@ -97,8 +102,21 @@ public class Grenade : MonoBehaviour, IProjectile
         Explosion();
     }
 
+    private void CheckTarget()
+    {
+        Collider[] cols;
+
+        cols = Physics.OverlapSphere(transform.position, ConstVariable.GRENADE_EXPLOSION_DISTANCE, targetLayer);
+
+        foreach(Collider col in cols)
+        {
+            col.gameObject.GetComponent<IExplosionInteract>()?.IExplosionInteract(ConstVariable.GRENADE_EXPLOSION_POWER, transform.position, ConstVariable.GRENADE_EXPLOSION_DISTANCE);
+        }
+    }
+
     private void Explosion()
     {
+        CheckTarget();
         ParticleManager.instance.ShowParticle(ConstVariable.GRENADE_PARTICLE_INDEX, transform.position);
         Destroy(gameObject);
     }

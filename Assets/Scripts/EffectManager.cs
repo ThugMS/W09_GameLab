@@ -46,7 +46,7 @@ public class EffectManager : MonoBehaviour
     {
         isTimeStop = true;
 
-        m_colorAdjustments.postExposure.Override(2f);
+        m_colorAdjustments.postExposure.Override(3f);
         m_chromaticAberration.intensity.Override(1f);
 
         Time.timeScale = 0f;

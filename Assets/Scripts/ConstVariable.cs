@@ -22,4 +22,6 @@ public static class ConstVariable
     public const float GRENADE_RANGE = 10f;
     public const int GRENADE_PARTICLE_INDEX = 1;
     public const int GRENADE_DIVDENUM = 4;
+    public const float GRENADE_EXPLOSION_DISTANCE = 5f;
+    public const float GRENADE_EXPLOSION_POWER = 50f;
 }

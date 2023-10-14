@@ -9,7 +9,7 @@ namespace StarterAssets
 #if ENABLE_INPUT_SYSTEM
 	[RequireComponent(typeof(PlayerInput))]
 #endif
-	public class FirstPersonController : MonoBehaviour
+    public class FirstPersonController : MonoBehaviour, IExplosionInteract
 	{
 		public static FirstPersonController instance;
 
@@ -64,7 +64,8 @@ namespace StarterAssets
 		private float _rotationVelocity;
 		private float _verticalVelocity;
 		private float _terminalVelocity = 53.0f;
-
+		private Vector3 _outsideEffect;
+		[SerializeField] private float _outsideEffectLerp = 0.1f;
 		// timeout deltatime
 		private float _jumpTimeoutDelta;
 		private float _fallTimeoutDelta;
@@ -128,7 +129,7 @@ namespace StarterAssets
 			Move();
 			Shoot();
 			Skill();
-
+			OutsidePowerMove();
         }
 
 		private void LateUpdate()
@@ -210,7 +211,7 @@ namespace StarterAssets
 			}
 
 			// move the player
-			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime);
+			_controller.Move(inputDirection.normalized * (_speed * Time.deltaTime) + new Vector3(0.0f, _verticalVelocity, 0.0f) * Time.deltaTime + _outsideEffect*Time.deltaTime);
 		}
 
 		private void JumpAndGravity()
@@ -261,6 +262,16 @@ namespace StarterAssets
 			}
 		}
 
+		private void OutsidePowerMove()
+		{
+			if (_outsideEffect == Vector3.zero)
+				return;
+			
+			_outsideEffect = Vector3.Lerp(_outsideEffect, Vector3.zero, _outsideEffectLerp);
+			Debug.Log(_outsideEffect);
+			
+		}
+
 		private void Shoot()
 		{
 			if (_input.shoot)
@@ -292,5 +303,15 @@ namespace StarterAssets
 			// when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
 			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
 		}
-	}
+
+        public void IExplosionInteract(float _power, Vector3 _pos, float _exploDistance)
+        {
+            Vector3 dir = (transform.position + new Vector3(0,1,0)  - _pos).normalized;
+			float dis = Vector3.Distance(transform.position, _pos);
+
+			float power = _power * (dis / _exploDistance);
+			dir.y *= 2f;
+			_outsideEffect = dir * _power;
+        }
+    }
 }
