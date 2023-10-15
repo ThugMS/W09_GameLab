@@ -22,6 +22,7 @@ public abstract class Gun : MonoBehaviour
 
     public float skillCoolTime;
     public float skillCurCoolTime;
+    public float skillDamage;
 
     public bool isHit = false;
     public bool isProjectile = false;
@@ -102,6 +103,14 @@ public abstract class Gun : MonoBehaviour
             hit.transform.GetComponent<IProjectile>().ProjectileAction();
         }
 
+    }
+
+    public void DamageToMonster(float _damage)
+    {
+        if (!(hit.transform.gameObject.layer == LayerMask.NameToLayer("Monster")))
+            return;
+
+        hit.transform.GetComponent<IMonsterHit>().GetDamage(_damage);
     }
     #endregion
 

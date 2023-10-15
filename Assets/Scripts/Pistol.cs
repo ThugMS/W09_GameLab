@@ -30,7 +30,9 @@ public class Pistol : Gun
         shootCircleRadius = ConstVariable.PISTOL_CIRCLE_RADIUS;
         shootCoolTime = ConstVariable.PISTOL_COOLTIME;
         shootDamage = ConstVariable.PISTOL_DAMAGE;
+
         skillCoolTime = ConstVariable.PISTOL_SKILL_COOLTIME;
+        skillDamage = ConstVariable.PISTOL_SKILL_DAMAGE;
         m_skillChargeTime = ConstVariable.PISTOL_SKILL_CHARGETIME;
         m_skillEffectScale = ConstVariable.PISTOL_SKILL_EFFECTSCALE;
 
@@ -56,7 +58,6 @@ public class Pistol : Gun
 
         SetShootDireciton();
         ShowShoot();
-       
     }
 
     public override void Skill(bool _pressed)
@@ -89,6 +90,7 @@ public class Pistol : Gun
         if (isHit == true)
         {   
             ParticleManager.instance.ShowParticle(ConstVariable.PISTOL_PARTICLE_INDEX, targetPos, transform.position);
+            DamageToMonster(shootDamage);
         }
 
         ResetShootCoolTime();
@@ -101,6 +103,7 @@ public class Pistol : Gun
         if (isHit == true)
         {
             ParticleManager.instance.ShowParticle(ConstVariable.PISTOL_PARTICLE_INDEX, targetPos, transform.position);
+            DamageToMonster(skillDamage);
         }
 
         ResetSkillCoolTime();

@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 
-public class MeleeMonster : MonoBehaviour
+public class MeleeMonster : MonoBehaviour, IMonsterHit
 {
     #region PublicVariables
     public Animator animator;
@@ -12,8 +12,10 @@ public class MeleeMonster : MonoBehaviour
     public bool canMove = true;
     public bool canAttack = false;
     public bool isAttack = true;
+    public bool isDeath = false;
 
     public int attackLayer;
+    
     #endregion
 
     #region PrivateVariables
@@ -23,6 +25,9 @@ public class MeleeMonster : MonoBehaviour
     private Vector3 m_dir;
     private float m_speed;
     private float m_attackRange;
+    private float m_health;
+
+    private Vector3 m_deathColCenter = new Vector3(0, 0.2f, 0.6f);
     #endregion
 
     #region PublicMethod
@@ -33,11 +38,17 @@ public class MeleeMonster : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if (isDeath == true)
+            return;
+
         MoveToTarget();
     }
 
     private void Update()
     {
+        if (isDeath == true)
+            return;
+
         Attack();
     }
 
@@ -45,6 +56,12 @@ public class MeleeMonster : MonoBehaviour
     {
         isAttack = false;
         canMove = true;
+    }
+
+    public void GetDamage(float _damage)
+    {
+        m_health -= _damage;
+        CheckDeath();
     }
     #endregion
 
@@ -59,7 +76,7 @@ public class MeleeMonster : MonoBehaviour
 
         m_speed = ConstVariable.MELEEMONSTER_SPEED;
         m_attackRange = ConstVariable.MELEEMONSTER_RANGE;
-        
+        m_health = ConstVariable.MELEEMONSTER_HEALTH;
     }
     private void MoveToTarget()
     {
@@ -87,6 +104,25 @@ public class MeleeMonster : MonoBehaviour
         animator.Play(ConstVariable.MELEEMONSTER_ATTACKANIM);
     }
 
+    private void CheckDeath()
+    {
+        if(m_health <= 0)
+        {   
+            isDeath = true;
+            animator.SetTrigger("Death");
+            CapsuleCollider col;
+            col = transform.GetComponent<CapsuleCollider>();
+            col.center = m_deathColCenter;
+            col.direction = 2;
+            Invoke(nameof(DestroySelf), 10f);
+        }
+    }
+
+    private void DestroySelf()
+    {
+        Destroy(gameObject);
+    }
+
     private void OnTriggerStay(Collider other)
     {
         canAttack = true;
@@ -96,5 +132,7 @@ public class MeleeMonster : MonoBehaviour
     {
         canAttack = false;
     }
+
+
     #endregion
 }
