@@ -28,4 +28,5 @@ public static class ConstVariable
     [Header("Melee Monster")]
     public const float MELEEMONSTER_SPEED = 5f;
     public const float MELEEMONSTER_RANGE = 3f;
+    public const string MELEEMONSTER_ATTACKANIM = "root|Anim_monster_scavenger_attack";
 }
