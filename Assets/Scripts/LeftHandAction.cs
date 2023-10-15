@@ -18,6 +18,12 @@ public class LeftHandAction : MonoBehaviour
 
     private Vector3 m_targetDir;
     private Vector3 m_targetPosition;
+
+    private float m_grenadeCurCoolTime;
+    private float m_grenadeCoolTime;
+
+    private float m_punchCurCoolTime;
+    private float m_punchCoolTime;
     #endregion
 
     #region PublicMethod
@@ -28,6 +34,8 @@ public class LeftHandAction : MonoBehaviour
 
     private void Update()
     {
+        UpdateCoolTime();
+
         CheckThrow();
         CheckPunch();
     }
@@ -56,7 +64,20 @@ public class LeftHandAction : MonoBehaviour
         TryGetComponent<Animator>(out leftHandAnimator);
 
         throwingType = THROWING_TYPE.Grenade;
+
+        m_grenadeCoolTime = ConstVariable.GRENADE_COOLTIME;
+        m_punchCoolTime = ConstVariable.PUNCH_COOLTIME;
+
+        m_grenadeCurCoolTime = m_grenadeCoolTime;
+        m_punchCurCoolTime = m_punchCoolTime;
     }
+
+    private void UpdateCoolTime()
+    {
+        m_grenadeCurCoolTime += Time.deltaTime;
+        m_punchCurCoolTime += Time.deltaTime;
+    }
+
     private void CheckThrow()
     {
         if (m_input.throwing == false)
@@ -64,7 +85,11 @@ public class LeftHandAction : MonoBehaviour
 
         m_input.throwing = false;
 
-        Throw();
+        if(m_grenadeCurCoolTime >= m_grenadeCoolTime)
+        {
+            Throw();
+            m_grenadeCurCoolTime = 0f;
+        }
     }
 
     private void Throw()
@@ -78,8 +103,7 @@ public class LeftHandAction : MonoBehaviour
         CharacterController playerController = transform.parent.GetComponent<CharacterController>();
 
         grenade.GetComponent<Grenade>().InitSetting(m_targetDir.normalized, playerController.velocity);
-        
-        
+
         
     }
 
@@ -99,7 +123,11 @@ public class LeftHandAction : MonoBehaviour
 
         m_input.punch = false;
 
-        leftHandAnimator.Play("LeftHandPunch");
+        if(m_punchCurCoolTime >= m_punchCoolTime)
+        {
+            leftHandAnimator.Play("LeftHandPunch");
+            m_punchCurCoolTime = 0f;
+        }
     }
     #endregion
 }

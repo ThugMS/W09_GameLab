@@ -96,7 +96,7 @@ public abstract class Gun : MonoBehaviour
     }
 
     public void CheckProjectile()
-    {
+    {   
         if(hit.transform.gameObject.layer == LayerMask.NameToLayer("Projectile"))
         {
             isProjectile = true;

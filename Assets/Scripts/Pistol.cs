@@ -1,6 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditor.ShaderGraph.Internal;
+using System.Drawing;
 using UnityEngine;
 
 public class Pistol : Gun
@@ -11,6 +11,7 @@ public class Pistol : Gun
     public AudioSource pistolSound;
 
     public bool isSkillPressed = false;
+    public RaycastHit[] skillHit;
     #endregion
 
     #region PrivateVariables
@@ -73,15 +74,34 @@ public class Pistol : Gun
         if (SkillChargeCheck() == false)
             return;
 
-        SetShootDireciton();
+        SetSkillDirection();
         ShowSkill();
     }
-
-
     #endregion
 
     #region PrivateMethod
+    private void SetSkillDirection()
+    {
+        isHit = false;
+        isProjectile = false;
 
+        skillHit = Physics.SphereCastAll(viewCamera.transform.position, shootCircleRadius, viewCamera.transform.forward, targetLayer);
+
+        shootDirection = targetPos - transform.position;
+        targetPos = viewCamera.transform.position + viewCamera.transform.forward * 50f;
+        foreach (var item in skillHit)
+        {
+            isHit = true;
+            hit = item;
+            CheckProjectile();
+
+            if (item.transform.gameObject.layer == LayerMask.NameToLayer("Wall"))
+            {
+                targetPos = item.transform.position;
+                break;
+            }
+        }
+    }
 
     private void ShowShoot()
     {
@@ -98,11 +118,12 @@ public class Pistol : Gun
 
     private void ShowSkill()
     {
-        ShowLine();
+        ShowSkillLine();
 
-        if (isHit == true)
+        foreach (var item in skillHit)
         {
-            ParticleManager.instance.ShowParticle(ConstVariable.PISTOL_PARTICLE_INDEX, targetPos, transform.position);
+            ParticleManager.instance.ShowParticle(ConstVariable.PISTOL_PARTICLE_INDEX, item.transform.position, transform.position);
+            hit = item;
             DamageToMonster(skillDamage);
         }
 
@@ -118,7 +139,24 @@ public class Pistol : Gun
         shootLine.SetPosition(1, targetPos);
 
         StopCoroutine(nameof(IE_ShootTrail));
+        StopCoroutine(nameof(IE_SkillTrail));
         StartCoroutine(nameof(IE_ShootTrail));
+
+        animator.Play(ConstVariable.PISTOL_ANIMATION_RECOIL);
+        pistolSound.Play();
+    }
+
+    private void ShowSkillLine()
+    {
+        shootLine.positionCount = 2;
+
+        Vector3 shootPos = transform.position + viewCamera.transform.forward;
+        shootLine.SetPosition(0, shootPos);
+        shootLine.SetPosition(1, targetPos);
+
+        StopCoroutine(nameof(IE_ShootTrail));
+        StopCoroutine(nameof(IE_SkillTrail));
+        StartCoroutine(nameof(IE_SkillTrail));
 
         animator.Play(ConstVariable.PISTOL_ANIMATION_RECOIL);
         pistolSound.Play();
@@ -164,12 +202,38 @@ public class Pistol : Gun
     {
         float width = 0.1f;
 
+        shootLine.startColor = UnityEngine.Color.white;
+        shootLine.endColor = UnityEngine.Color.white;
+
         while (true)
         {
             shootLine.startWidth = width;
             shootLine.endWidth = width;
 
             width -= 0.003f;
+            yield return null;
+
+            if (width <= 0)
+                break;
+        }
+
+        shootLine.positionCount = 0;
+    }
+
+    private IEnumerator IE_SkillTrail()
+    {
+        float width = 0.4f;
+        UnityEngine.Color colorSt = new UnityEngine.Color(255f / 255f, 198f / 255f, 102f / 255f);
+
+        shootLine.startColor = colorSt;
+        shootLine.endColor = colorSt;
+
+        while (true)
+        {
+            shootLine.startWidth = width;
+            shootLine.endWidth = width;
+
+            width -= 0.006f;
             yield return null;
 
             if (width <= 0)

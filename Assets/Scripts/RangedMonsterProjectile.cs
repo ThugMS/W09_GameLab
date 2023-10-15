@@ -75,7 +75,7 @@ public class RangedMonsterProjectile : MonoBehaviour, IProjectile
 
     private void ChangeDirection()
     {
-        transform.LookAt(transform.position + FirstPersonController.instance.transform.forward);
+        transform.LookAt(transform.position + FirstPersonController.instance.CinemachineCameraTarget.transform.forward);
         targetLayer = LayerMask.GetMask("Monster", "Wall");
         m_speed *= 2f;
     }

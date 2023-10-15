@@ -146,12 +146,19 @@ public class MeleeMonster : MonoBehaviour, IMonsterHit, IExplosionInteract
 
     private void OnTriggerStay(Collider other)
     {
-        canAttack = true;
+        if(other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            canAttack = true;
+        }
+        
     }
 
     private void OnTriggerExit(Collider other)
     {
-        canAttack = false;
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+        {
+            canAttack = false;
+        }
     }
 
     #endregion

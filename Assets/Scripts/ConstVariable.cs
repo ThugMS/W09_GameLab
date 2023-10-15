@@ -10,7 +10,7 @@ public static class ConstVariable
     public const float PISTOL_DAMAGE = 20f;
     public const float PISTOL_OFFSET = 1f;
     public const float PISTOL_SKILL_COOLTIME = 1f;
-    public const float PISTOL_SKILL_DAMAGE = 50f;
+    public const float PISTOL_SKILL_DAMAGE = 20f;
     public const float PISTOL_SKILL_CHARGETIME = 1f;
     public const float PISTOL_SKILL_EFFECTSCALE = 0.3f;
 
@@ -21,6 +21,7 @@ public static class ConstVariable
     public const float GRENADE_SPEED = 25f;
     public const float GRENADE_UPPOWER = 5f;
     public const float GRENADE_RANGE = 10f;
+    public const float GRENADE_COOLTIME = 2f;
     public const int GRENADE_PARTICLE_INDEX = 1;
     public const int GRENADE_DIVDENUM = 4;
     public const float GRENADE_EXPLOSION_DISTANCE = 5f;
@@ -42,4 +43,5 @@ public static class ConstVariable
 
     [Header("Punch")]
     public const float PUNCH_BOXSIZE = 1f;
+    public const float PUNCH_COOLTIME = 0.5f;
 }
