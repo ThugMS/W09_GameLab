@@ -58,11 +58,11 @@ public class RangedMonsterProjectile : MonoBehaviour, IProjectile
     {
         Collider[] cols;
 
-        cols = Physics.OverlapSphere(transform.position, ConstVariable.GRENADE_EXPLOSION_DISTANCE, 1 << targetLayer);
+        cols = Physics.OverlapSphere(transform.position, ConstVariable.GRENADE_EXPLOSION_DISTANCE, targetLayer);
 
         foreach (Collider col in cols)
         {
-            col.gameObject.GetComponent<IExplosionInteract>()?.IExplosionInteract(ConstVariable.GRENADE_EXPLOSION_POWER, transform.position, ConstVariable.GRENADE_EXPLOSION_DISTANCE, ConstVariable.GRENADE_EXPLOSION_DAMAGE);
+            col.gameObject.GetComponent<IExplosionInteract>()?.IExplosionInteract(ConstVariable.GRENADE_EXPLOSION_POWER, transform.position, ConstVariable.GRENADE_EXPLOSION_DISTANCE, ConstVariable.GRENADE_EXPLOSION_DAMAGE * 2);
         }
     }
 
@@ -77,7 +77,7 @@ public class RangedMonsterProjectile : MonoBehaviour, IProjectile
     {
         transform.LookAt(transform.position + FirstPersonController.instance.CinemachineCameraTarget.transform.forward);
         targetLayer = LayerMask.GetMask("Monster", "Wall");
-        m_speed *= 2f;
+        m_speed *= 4f;
     }
 
     private void OnTriggerStay(Collider other)

@@ -47,7 +47,7 @@ public class RangedMonster : MonoBehaviour, IMonsterHit, IExplosionInteract
         Vector3 spawnPos = transform.position + dir * 2f + new Vector3(0, 4.31f, 0);
 
         GameObject obj = Instantiate(attackPrefab, spawnPos, Quaternion.identity);
-        obj.GetComponent<RangedMonsterProjectile>().InitSetting(ConstVariable.RANGEDMONSTER_ATTACK_SPEED, FirstPersonController.instance.transform.position);
+        obj.GetComponent<RangedMonsterProjectile>().InitSetting(ConstVariable.RANGEDMONSTER_ATTACK_SPEED, FirstPersonController.instance.CinemachineCameraTarget.transform.position);
 
         EndAttack();
     }
