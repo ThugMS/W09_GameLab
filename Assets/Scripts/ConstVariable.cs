@@ -24,4 +24,8 @@ public static class ConstVariable
     public const int GRENADE_DIVDENUM = 4;
     public const float GRENADE_EXPLOSION_DISTANCE = 5f;
     public const float GRENADE_EXPLOSION_POWER = 50f;
+
+    [Header("Melee Monster")]
+    public const float MELEEMONSTER_SPEED = 5f;
+    public const float MELEEMONSTER_RANGE = 3f;
 }
