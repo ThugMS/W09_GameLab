@@ -21,8 +21,9 @@ public class RangedMonsterProjectile : MonoBehaviour, IProjectile
     {
         m_rb.MovePosition(m_rb.position + transform.forward * m_speed * Time.fixedDeltaTime);
 
-        if (Input.GetKeyDown(KeyCode.F))
-            ChangeDirection();
+        // TEST
+        //if (Input.GetKeyDown(KeyCode.F))
+        //    ChangeDirection();
     }
     public void InitSetting(float _speed, Vector3 _pos)
     {
@@ -32,7 +33,7 @@ public class RangedMonsterProjectile : MonoBehaviour, IProjectile
         
         m_dir = _pos;
         m_speed = _speed;
-        targetLayer = LayerMask.NameToLayer("Player");
+        targetLayer = LayerMask.GetMask("Player", "Wall");
     }
 
     public void IProjectileAction(PROJECTILE_INTERACT_TYPE _type)
@@ -57,7 +58,7 @@ public class RangedMonsterProjectile : MonoBehaviour, IProjectile
     {
         Collider[] cols;
 
-        cols = Physics.OverlapSphere(transform.position, ConstVariable.GRENADE_EXPLOSION_DISTANCE, 1<<targetLayer);
+        cols = Physics.OverlapSphere(transform.position, ConstVariable.GRENADE_EXPLOSION_DISTANCE, 1 << targetLayer);
 
         foreach (Collider col in cols)
         {
@@ -68,20 +69,20 @@ public class RangedMonsterProjectile : MonoBehaviour, IProjectile
     private void Explosion()
     {
         CheckTarget();
-        ParticleManager.instance.ShowParticle(ConstVariable.GRENADE_PARTICLE_INDEX, transform.position);
+        ParticleManager.instance.ShowParticle(ConstVariable.RANGEDMONSTER_PARTICLE_INDEX, transform.position);
         Destroy(gameObject);
     }
 
     private void ChangeDirection()
     {
         transform.LookAt(transform.position + FirstPersonController.instance.transform.forward);
-        targetLayer = LayerMask.NameToLayer("Monster");
-        m_speed += 5f;
+        targetLayer = LayerMask.GetMask("Monster", "Wall");
+        m_speed *= 2f;
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.gameObject.layer != targetLayer)
+        if ((1 << (other.gameObject.layer) & targetLayer) == 0)
             return;
 
         Explosion();

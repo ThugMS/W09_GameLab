@@ -1,5 +1,52 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &721033092
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 721033093}
+  - component: {fileID: 721033094}
+  m_Layer: 8
+  m_Name: LeftHand
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &721033093
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721033092}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.3, y: 1.2, z: 0.3}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 8997996947095583982}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &721033094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 721033092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0ae0d379786f10f41b0af84e39e98b52, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  throwingType: 0
+  throwingObjs:
+  - {fileID: 1415556611663978, guid: cfd3f4e986db32a49aa3a5a88b648e24, type: 3}
 --- !u!1 &817587764
 GameObject:
   m_ObjectHideFlags: 0
@@ -212,6 +259,7 @@ Transform:
   - {fileID: 4135013735270702856}
   - {fileID: 5393215578589016641}
   - {fileID: 817587765}
+  - {fileID: 721033093}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -263,6 +311,7 @@ MonoBehaviour:
   TopClamp: 89
   BottomClamp: -89
   Weapon: {fileID: 817587764}
+  _outsideEffectLerp: 0.05
 --- !u!114 &1978471637655604388
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,6 +347,8 @@ MonoBehaviour:
   sprint: 0
   shoot: 0
   skill: 0
+  throwing: 0
+  punch: 0
   analogMovement: 0
   cursorLocked: 1
   cursorInputForLook: 1
@@ -728,7 +779,9 @@ MonoBehaviour:
   shootDamage: 0
   skillCoolTime: 0
   skillCurCoolTime: 0
+  skillDamage: 0
   isHit: 0
+  isProjectile: 0
   shootLine: {fileID: 0}
   animator: {fileID: 0}
   pistolSound: {fileID: 0}

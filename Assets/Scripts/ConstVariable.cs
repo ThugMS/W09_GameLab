@@ -36,6 +36,10 @@ public static class ConstVariable
 
     [Header("Ranged Monster")]
     public const float RANGEDMONSTER_HEALTH = 200f;
+    public const int RANGEDMONSTER_PARTICLE_INDEX = 2;
     public const float RANGEDMONSTER_ATTACK_COOLTIME = 3f;
-    public const float RANGEDMONSTER_ATTACK_SPEED = 10f;
+    public const float RANGEDMONSTER_ATTACK_SPEED = 25f;
+
+    [Header("Punch")]
+    public const float PUNCH_BOXSIZE = 1f;
 }

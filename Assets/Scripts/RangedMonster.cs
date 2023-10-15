@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RangedMonster : MonoBehaviour, IMonsterHit
+public class RangedMonster : MonoBehaviour, IMonsterHit, IExplosionInteract
 {
     #region PublicVariables
     public bool canAttack = false;
@@ -50,6 +50,12 @@ public class RangedMonster : MonoBehaviour, IMonsterHit
         obj.GetComponent<RangedMonsterProjectile>().InitSetting(ConstVariable.RANGEDMONSTER_ATTACK_SPEED, FirstPersonController.instance.transform.position);
 
         EndAttack();
+    }
+
+
+    public void IExplosionInteract(float _power, Vector3 _pos, float _exploDistance, float _damage)
+    {
+        IGetDamage(_damage);
     }
     #endregion
 
@@ -121,6 +127,7 @@ public class RangedMonster : MonoBehaviour, IMonsterHit
         if (m_attackCurCoolTime >= m_attackCoolTime)
             canAttack = true;
     }
+
     #endregion
 
 }

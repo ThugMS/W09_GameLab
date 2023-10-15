@@ -10,6 +10,7 @@ public class LeftHandAction : MonoBehaviour
     public THROWING_TYPE throwingType;
 
     public List<GameObject> throwingObjs;
+    public Animator leftHandAnimator;
     #endregion
 
     #region PrivateVariables
@@ -28,13 +29,32 @@ public class LeftHandAction : MonoBehaviour
     private void Update()
     {
         CheckThrow();
+        CheckPunch();
+    }
+
+    public void Punch()
+    {
+        Vector3 pos = transform.position + transform.forward * (1 + ConstVariable.PUNCH_BOXSIZE);
+        float size = ConstVariable.PUNCH_BOXSIZE;
+
+        Collider[] cols = Physics.OverlapBox(pos, new Vector3(size, size, size), Quaternion.identity);
+
+        foreach(Collider col in cols)
+        {
+            if(col.gameObject.layer == LayerMask.NameToLayer("Projectile"))
+            {
+                col.transform.GetComponent<IProjectile>()?.IProjectileAction(PROJECTILE_INTERACT_TYPE.Melee);
+            }
+        }
     }
     #endregion
 
     #region PrivateMethod
-    private void InitSetting()
+    private void InitSetting() 
     {
         m_input = transform.parent.GetComponent<StarterAssetsInputs>();
+        TryGetComponent<Animator>(out leftHandAnimator);
+
         throwingType = THROWING_TYPE.Grenade;
     }
     private void CheckThrow()
@@ -63,11 +83,23 @@ public class LeftHandAction : MonoBehaviour
         
     }
 
+
+
     private void GetDirection()
     {
         m_targetPosition = transform.position + FirstPersonController.instance.CinemachineCameraTarget.transform.forward * ConstVariable.GRENADE_RANGE;
 
         m_targetDir = m_targetPosition - transform.position;
+    }
+
+    private void CheckPunch()
+    {
+        if (m_input.punch == false)
+            return;
+
+        m_input.punch = false;
+
+        leftHandAnimator.Play("LeftHandPunch");
     }
     #endregion
 }
