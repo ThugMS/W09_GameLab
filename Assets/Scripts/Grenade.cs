@@ -10,13 +10,14 @@ public class Grenade : MonoBehaviour, IProjectile
     public Vector3 targetPos;
 
     public int targetLayer;
+    public Rigidbody rb;
     #endregion
 
     #region PrivateVariables
     private float m_throwSpeed;
     private float m_upPower;
     private Vector3 m_dir;
-    private Rigidbody m_rb;
+   
     #endregion
 
     #region PublicMethod
@@ -36,12 +37,12 @@ public class Grenade : MonoBehaviour, IProjectile
 
     public void InitSetting(Vector3 _dir, Vector3 _playerVel)
     {
-        m_rb = GetComponent<Rigidbody>();
+        rb = GetComponent<Rigidbody>();
         m_throwSpeed = ConstVariable.GRENADE_SPEED;
         m_upPower = ConstVariable.GRENADE_UPPOWER;
         m_dir = _dir;
 
-        m_rb.AddForce(_playerVel, ForceMode.Impulse);
+        rb.AddForce(_playerVel, ForceMode.Impulse);
         AddForce();
     }
 
@@ -49,8 +50,8 @@ public class Grenade : MonoBehaviour, IProjectile
     {
         isTrace = true;
         targetPos = _pos;
-        m_rb = GetComponent<Rigidbody>();
-        m_rb.useGravity = false;
+        rb = GetComponent<Rigidbody>();
+        rb.useGravity = false;
     }
 
     public void AttackTarget()
@@ -60,8 +61,8 @@ public class Grenade : MonoBehaviour, IProjectile
 
     public void AddForce()
     {
-        m_rb.AddForce(Vector3.up * m_upPower, ForceMode.Impulse);
-        m_rb.AddForce(m_dir * m_throwSpeed, ForceMode.Impulse);
+        rb.AddForce(Vector3.up * m_upPower, ForceMode.Impulse);
+        rb.AddForce(m_dir * m_throwSpeed, ForceMode.Impulse);
     }
 
     public void ProjectileAction()
@@ -75,8 +76,10 @@ public class Grenade : MonoBehaviour, IProjectile
         {
             for(int i = 0; i < monstersChildCount; i++)
             {
-                Vector3 targetPos = monsters.transform.GetChild(i).position;
+                if (monsters.transform.GetChild(i).GetComponent<MeleeMonster>().isDeath)
+                    continue;
 
+                Vector3 targetPos = monsters.transform.GetChild(i).position;
                 GameObject obj = Instantiate(gameObject, transform.position, Quaternion.identity);
                 obj.GetComponent<Grenade>().TraceTarget(targetPos);
                 cnt++;
@@ -84,6 +87,18 @@ public class Grenade : MonoBehaviour, IProjectile
                 if (cnt >= num)
                     break;
             }
+            if (cnt == 0)
+            {
+                for(int i=0; i< num; i++)
+                {
+                    GameObject obj = Instantiate(gameObject, transform.position, Quaternion.identity);
+                    obj.transform.rotation = Quaternion.Euler(0, 90f*i, 0);
+                    obj.GetComponent<Grenade>().rb.AddForce(obj.transform.forward * 10f, ForceMode.Impulse);
+                }
+
+                break;
+            }
+                
         }
 
         Explosion();
