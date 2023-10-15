@@ -2011,6 +2011,7 @@ MonoBehaviour:
   attackPrefab: {fileID: 3216260244345188549, guid: 6ff2e3cfc3905874a802a3d8124dbeda,
     type: 3}
   animator: {fileID: 1602237039}
+  demonPivot: {fileID: 0}
 --- !u!1 &1764214107
 GameObject:
   m_ObjectHideFlags: 0

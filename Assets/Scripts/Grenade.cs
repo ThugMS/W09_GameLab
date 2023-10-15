@@ -111,8 +111,10 @@ public class Grenade : MonoBehaviour, IProjectile
     #endregion
 
     #region PrivateMethod
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerStay(Collider other)
     {
+        if (other.gameObject.layer == LayerMask.NameToLayer("Player"))
+            return;
         Explosion();
     }
 

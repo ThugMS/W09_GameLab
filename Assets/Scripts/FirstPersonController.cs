@@ -278,7 +278,6 @@ namespace StarterAssets
 			_outsideEffect = Vector3.Lerp(_outsideEffect, Vector3.zero, _outsideEffectLerp);
 			if (_outsideEffect.magnitude <= 0.5f)
 				_outsideEffect = Vector3.zero;
-			Debug.Log(_outsideEffect);
 			
 		}
 

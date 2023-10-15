@@ -32,7 +32,7 @@ public class RangedMonsterProjectile : MonoBehaviour, IProjectile
         
         m_dir = _pos;
         m_speed = _speed;
-        targetLayer = LayerMask.GetMask("Player", "Monster");
+        targetLayer = LayerMask.NameToLayer("Player");
     }
 
     public void IProjectileAction(PROJECTILE_INTERACT_TYPE _type)
@@ -46,6 +46,7 @@ public class RangedMonsterProjectile : MonoBehaviour, IProjectile
                 ChangeDirection();
                 break;
         }
+        EffectManager.instance.TimeStopEffect();
     }
 
 
@@ -56,7 +57,7 @@ public class RangedMonsterProjectile : MonoBehaviour, IProjectile
     {
         Collider[] cols;
 
-        cols = Physics.OverlapSphere(transform.position, ConstVariable.GRENADE_EXPLOSION_DISTANCE, targetLayer);
+        cols = Physics.OverlapSphere(transform.position, ConstVariable.GRENADE_EXPLOSION_DISTANCE, 1<<targetLayer);
 
         foreach (Collider col in cols)
         {
@@ -74,7 +75,16 @@ public class RangedMonsterProjectile : MonoBehaviour, IProjectile
     private void ChangeDirection()
     {
         transform.LookAt(transform.position + FirstPersonController.instance.transform.forward);
+        targetLayer = LayerMask.NameToLayer("Monster");
         m_speed += 5f;
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.gameObject.layer != targetLayer)
+            return;
+
+        Explosion();
     }
     #endregion
 }
