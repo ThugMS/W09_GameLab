@@ -11,7 +11,7 @@ public interface IMonsterHit
     #endregion
 
     #region PublicMethod
-    public void GetDamage(float _damage); 
+    public void IGetDamage(float _damage); 
     #endregion
 
     #region PrivateMethod

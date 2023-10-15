@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Scripting.APIUpdating;
 
-public class MeleeMonster : MonoBehaviour, IMonsterHit
+public class MeleeMonster : MonoBehaviour, IMonsterHit, IExplosionInteract
 {
     #region PublicVariables
     public Animator animator;
@@ -58,10 +58,31 @@ public class MeleeMonster : MonoBehaviour, IMonsterHit
         canMove = true;
     }
 
-    public void GetDamage(float _damage)
+    public void IGetDamage(float _damage)
     {
         m_health -= _damage;
         CheckDeath();
+    }
+
+    public void IExplosionInteract(float _power, Vector3 _pos, float _exploDistance, float _damage)
+    {
+        if(isDeath || m_health - _damage <= 0)
+        {
+            PushedByExplosion(_power, _pos, _exploDistance);
+        }
+
+        IGetDamage(_damage);
+    }
+
+    public void PushedByExplosion(float _power, Vector3 _pos, float _exploDistance)
+    {
+        Vector3 dir = (transform.position + new Vector3(0, 1, 0) - _pos).normalized;
+        float dis = Vector3.Distance(transform.position, _pos);
+
+        float power = _power * (dis / _exploDistance);
+        dir.y *= 2f;
+
+        m_rb.AddForce(dir * power, ForceMode.Impulse);
     }
     #endregion
 
@@ -132,7 +153,6 @@ public class MeleeMonster : MonoBehaviour, IMonsterHit
     {
         canAttack = false;
     }
-
 
     #endregion
 }

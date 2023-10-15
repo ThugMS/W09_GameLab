@@ -110,7 +110,7 @@ public abstract class Gun : MonoBehaviour
         if (!(hit.transform.gameObject.layer == LayerMask.NameToLayer("Monster")))
             return;
 
-        hit.transform.GetComponent<IMonsterHit>().GetDamage(_damage);
+        hit.transform.GetComponent<IMonsterHit>().IGetDamage(_damage);
     }
     #endregion
 

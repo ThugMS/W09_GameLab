@@ -314,7 +314,7 @@ namespace StarterAssets
 			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
 		}
 
-        public void IExplosionInteract(float _power, Vector3 _pos, float _exploDistance)
+        public void IExplosionInteract(float _power, Vector3 _pos, float _exploDistance, float _damage)
         {
             Vector3 dir = (transform.position + new Vector3(0,1,0)  - _pos).normalized;
 			float dis = Vector3.Distance(transform.position, _pos);

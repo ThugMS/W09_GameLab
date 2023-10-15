@@ -110,7 +110,7 @@ public class Grenade : MonoBehaviour, IProjectile
 
         foreach(Collider col in cols)
         {
-            col.gameObject.GetComponent<IExplosionInteract>()?.IExplosionInteract(ConstVariable.GRENADE_EXPLOSION_POWER, transform.position, ConstVariable.GRENADE_EXPLOSION_DISTANCE);
+            col.gameObject.GetComponent<IExplosionInteract>()?.IExplosionInteract(ConstVariable.GRENADE_EXPLOSION_POWER, transform.position, ConstVariable.GRENADE_EXPLOSION_DISTANCE, ConstVariable.GRENADE_EXPLOSION_DAMAGE);
         }
     }
 
@@ -119,6 +119,11 @@ public class Grenade : MonoBehaviour, IProjectile
         CheckTarget();
         ParticleManager.instance.ShowParticle(ConstVariable.GRENADE_PARTICLE_INDEX, transform.position);
         Destroy(gameObject);
+    }
+
+    public void GetDamage(float _damage)
+    {
+        throw new System.NotImplementedException();
     }
     #endregion
 }

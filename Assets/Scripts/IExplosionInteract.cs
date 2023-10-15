@@ -11,7 +11,7 @@ public interface IExplosionInteract
     #endregion
 
     #region PublicMethod
-    public void IExplosionInteract(float _power, Vector3 _pos, float _exploDistance);
+    public void IExplosionInteract(float _power, Vector3 _pos, float _exploDistance, float _damage);
     #endregion
 
     #region PrivateMethod
