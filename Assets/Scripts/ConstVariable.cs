@@ -34,4 +34,8 @@ public static class ConstVariable
     public const string MELEEMONSTER_ATTACKANIM = "root|Anim_monster_scavenger_attack";
     public const string MELEEMONSTER_DEATHANIM = "root|Anim_monster_scavenger_Death1";
 
+    [Header("Ranged Monster")]
+    public const float RANGEDMONSTER_HEALTH = 200f;
+    public const float RANGEDMONSTER_ATTACK_COOLTIME = 3f;
+    public const float RANGEDMONSTER_ATTACK_SPEED = 10f;
 }

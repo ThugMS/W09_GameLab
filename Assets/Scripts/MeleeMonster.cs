@@ -11,7 +11,7 @@ public class MeleeMonster : MonoBehaviour, IMonsterHit, IExplosionInteract
 
     public bool canMove = true;
     public bool canAttack = false;
-    public bool isAttack = true;
+    public bool isAttack = false;
     public bool isDeath = false;
 
     public int attackLayer;

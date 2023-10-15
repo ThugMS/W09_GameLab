@@ -98,7 +98,6 @@ public class Grenade : MonoBehaviour, IProjectile
 
                 break;
             }
-                
         }
 
         Explosion();
