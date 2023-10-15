@@ -10,3 +10,8 @@ public enum THROWING_TYPE
 {
     Grenade
 }
+
+public enum PROJECTILE_INTERACT_TYPE 
+{
+    Shoot, Melee
+}

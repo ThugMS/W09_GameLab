@@ -65,7 +65,7 @@ public class Grenade : MonoBehaviour, IProjectile
         rb.AddForce(m_dir * m_throwSpeed, ForceMode.Impulse);
     }
 
-    public void ProjectileAction()
+    public void IProjectileAction(PROJECTILE_INTERACT_TYPE _type)
     {   
 
         int num = ConstVariable.GRENADE_DIVDENUM;

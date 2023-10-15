@@ -2,17 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IProjectile
+public class RangeMonsterAnimation : MonoBehaviour
 {
     #region PublicVariables
+    public RangedMonster parentObj;
     #endregion
 
     #region PrivateVariables
     #endregion
 
     #region PublicMethod
-    public void IProjectileAction(PROJECTILE_INTERACT_TYPE _type);
-
+    public void ShowAttack()
+    {
+        parentObj.Attack();
+    }
     #endregion
 
     #region PrivateMethod

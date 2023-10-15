@@ -100,7 +100,7 @@ public abstract class Gun : MonoBehaviour
         if(hit.transform.gameObject.layer == LayerMask.NameToLayer("Projectile"))
         {
             isProjectile = true;
-            hit.transform.GetComponent<IProjectile>().ProjectileAction();
+            hit.transform.GetComponent<IProjectile>().IProjectileAction(PROJECTILE_INTERACT_TYPE.Shoot);
         }
 
     }

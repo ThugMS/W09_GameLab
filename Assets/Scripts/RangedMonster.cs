@@ -11,6 +11,8 @@ public class RangedMonster : MonoBehaviour, IMonsterHit
     public bool isDeath = false;
 
     public GameObject attackPrefab;
+    public Animator animator;
+    public Transform demonPivot;
     #endregion
 
     #region PrivateVariables
@@ -28,13 +30,26 @@ public class RangedMonster : MonoBehaviour, IMonsterHit
     private void Update()
     {
         SetAttackCoolTime();
-        Attack();
+        StartAttackAnimaitoin();
+        TracePlayer();
     }
 
     public void IGetDamage(float _damage)
     {
         m_health -= _damage;
         CheckDeath();
+    }
+
+    public void Attack()
+    {
+        Vector3 dir = GetAttackDirection();
+
+        Vector3 spawnPos = transform.position + dir * 2f + new Vector3(0, 4.31f, 0);
+
+        GameObject obj = Instantiate(attackPrefab, spawnPos, Quaternion.identity);
+        obj.GetComponent<RangedMonsterProjectile>().InitSetting(ConstVariable.RANGEDMONSTER_ATTACK_SPEED, FirstPersonController.instance.transform.position);
+
+        EndAttack();
     }
     #endregion
 
@@ -44,6 +59,7 @@ public class RangedMonster : MonoBehaviour, IMonsterHit
         m_health = ConstVariable.RANGEDMONSTER_HEALTH;
         m_attackCoolTime = ConstVariable.RANGEDMONSTER_ATTACK_COOLTIME;
         m_attackCurCoolTime = 0f;
+        demonPivot = transform.Find("DemonPivot");
     }
 
     private void CheckDeath()
@@ -60,22 +76,30 @@ public class RangedMonster : MonoBehaviour, IMonsterHit
         Destroy(gameObject);
     }
 
-    private void Attack()
+    private void TracePlayer()
+    {
+        demonPivot.LookAt(FirstPersonController.instance.transform.position);   
+    }
+
+    private void StartAttackAnimaitoin()
     {
         if (canAttack == false)
             return;
 
+        animator.Play("ThumbsUp 1");
+
         canAttack = false;
         isAttack = true;
-
-        Vector3 dir = GetAttackDirection();
-        
-        Vector3 spawnPos = transform.position + dir * 2f + new Vector3(0, 6.31f, 0);
-
-        GameObject obj = Instantiate(attackPrefab, spawnPos, Quaternion.identity);
-        obj.GetComponent<RangedMonsterProjectile>().InitSetting(ConstVariable.RANGEDMONSTER_ATTACK_SPEED, FirstPersonController.instance.transform.position);
     }
+
+
     
+    private void EndAttack()
+    {
+        isAttack = false;
+        m_attackCurCoolTime = 0f;
+    }
+
     private Vector3 GetAttackDirection()
     {
         Vector3 dir;
