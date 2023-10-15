@@ -13,6 +13,7 @@ public class RangedMonster : MonoBehaviour, IMonsterHit, IExplosionInteract
     public GameObject attackPrefab;
     public Animator animator;
     public Transform demonPivot;
+    public RangeSpawner _spawner;
     #endregion
 
     #region PrivateVariables
@@ -68,6 +69,11 @@ public class RangedMonster : MonoBehaviour, IMonsterHit, IExplosionInteract
         demonPivot = transform.Find("DemonPivot");
     }
 
+    public void SetSpawner(RangeSpawner _sp)
+    {
+        _spawner = _sp;
+    }
+
     private void CheckDeath()
     {
         if (m_health <= 0)
@@ -80,6 +86,11 @@ public class RangedMonster : MonoBehaviour, IMonsterHit, IExplosionInteract
     private void DeadAction()
     {
         Destroy(gameObject);
+
+        if(_spawner != null)
+        {
+            _spawner.StartCoroutine(nameof(_spawner.IE_Spawn));
+        }
     }
 
     private void TracePlayer()

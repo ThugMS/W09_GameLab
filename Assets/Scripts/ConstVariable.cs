@@ -21,27 +21,27 @@ public static class ConstVariable
     public const float GRENADE_SPEED = 25f;
     public const float GRENADE_UPPOWER = 5f;
     public const float GRENADE_RANGE = 10f;
-    public const float GRENADE_COOLTIME = 2f;
+    public const float GRENADE_COOLTIME = 1f;
     public const int GRENADE_PARTICLE_INDEX = 1;
     public const int GRENADE_DIVDENUM = 4;
     public const float GRENADE_EXPLOSION_DISTANCE = 5f;
     public const float GRENADE_EXPLOSION_POWER = 50f;
-    public const float GRENADE_EXPLOSION_DAMAGE = 20f;
+    public const float GRENADE_EXPLOSION_DAMAGE = 50f;
 
     [Header("Melee Monster")]
     public const float MELEEMONSTER_SPEED = 5f;
     public const float MELEEMONSTER_RANGE = 3f;
-    public const float MELEEMONSTER_HEALTH = 100f;
+    public const float MELEEMONSTER_HEALTH = 150f;
     public const string MELEEMONSTER_ATTACKANIM = "root|Anim_monster_scavenger_attack";
     public const string MELEEMONSTER_DEATHANIM = "root|Anim_monster_scavenger_Death1";
 
     [Header("Ranged Monster")]
-    public const float RANGEDMONSTER_HEALTH = 200f;
+    public const float RANGEDMONSTER_HEALTH = 100f;
     public const int RANGEDMONSTER_PARTICLE_INDEX = 2;
     public const float RANGEDMONSTER_ATTACK_COOLTIME = 3f;
     public const float RANGEDMONSTER_ATTACK_SPEED = 25f;
 
     [Header("Punch")]
-    public const float PUNCH_BOXSIZE = 1f;
+    public const float PUNCH_BOXSIZE = 2f;
     public const float PUNCH_COOLTIME = 0.5f;
 }

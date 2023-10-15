@@ -75,9 +75,13 @@ public class Grenade : MonoBehaviour, IProjectile
         while (cnt < num)
         {
             for(int i = 0; i < monstersChildCount; i++)
-            {
-                if (monsters.transform.GetChild(i).GetComponent<MeleeMonster>().isDeath)
-                    continue;
+            {//TODO 코드 깔끔히 할 것 긴급 처방
+                if(monsters.transform.GetChild(i).GetComponent<MeleeMonster>() != null)
+                {
+                    if (monsters.transform.GetChild(i).GetComponent<MeleeMonster>().isDeath)
+                        continue;
+                }
+                
 
                 Vector3 targetPos = monsters.transform.GetChild(i).position;
                 GameObject obj = Instantiate(gameObject, transform.position, Quaternion.identity);

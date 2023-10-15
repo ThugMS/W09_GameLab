@@ -14,6 +14,8 @@ public class RangedMonsterProjectile : MonoBehaviour, IProjectile
     private Rigidbody m_rb;
     private float m_speed;
     private Vector3 m_dir;
+
+    private float m_timer = 20f;
     #endregion
 
     #region PublicMethod
@@ -86,6 +88,13 @@ public class RangedMonsterProjectile : MonoBehaviour, IProjectile
             return;
 
         Explosion();
+    }
+
+    private IEnumerator IE_DestroySelf()
+    {
+        yield return new WaitForSeconds(m_timer);
+
+        Destroy(gameObject );
     }
     #endregion
 }
