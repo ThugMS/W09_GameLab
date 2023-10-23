@@ -5,12 +5,12 @@ using UnityEngine;
 public static class ConstVariable
 {
     [Header("Pistol")]
-    public const float PISTOL_CIRCLE_RADIUS = 0.3f;
+    public const float PISTOL_CIRCLE_RADIUS = 0.4f;
     public const float PISTOL_COOLTIME = 0.5f;
     public const float PISTOL_DAMAGE = 20f;
     public const float PISTOL_OFFSET = 1f;
     public const float PISTOL_SKILL_COOLTIME = 1f;
-    public const float PISTOL_SKILL_DAMAGE = 20f;
+    public const float PISTOL_SKILL_DAMAGE = 50f;
     public const float PISTOL_SKILL_CHARGETIME = 1f;
     public const float PISTOL_SKILL_EFFECTSCALE = 0.3f;
 
@@ -31,7 +31,7 @@ public static class ConstVariable
     [Header("Melee Monster")]
     public const float MELEEMONSTER_SPEED = 5f;
     public const float MELEEMONSTER_RANGE = 3f;
-    public const float MELEEMONSTER_HEALTH = 150f;
+    public const float MELEEMONSTER_HEALTH = 100f;
     public const string MELEEMONSTER_ATTACKANIM = "root|Anim_monster_scavenger_attack";
     public const string MELEEMONSTER_DEATHANIM = "root|Anim_monster_scavenger_Death1";
 

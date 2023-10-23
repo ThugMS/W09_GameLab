@@ -233,7 +233,7 @@ public class Pistol : Gun
             shootLine.startWidth = width;
             shootLine.endWidth = width;
 
-            width -= 0.006f;
+            width -= 0.003f;
             yield return null;
 
             if (width <= 0)
